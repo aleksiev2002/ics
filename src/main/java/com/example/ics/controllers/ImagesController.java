@@ -2,10 +2,8 @@ package com.example.ics.controllers;
 
 import com.example.ics.models.ImageEntity;
 import com.example.ics.services.ImageService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,4 +30,10 @@ public class ImagesController {
         return imageService.getById(id);
     }
 
+    @PostMapping("/images/analyze")
+    public ResponseEntity<?> analyzeImage(@RequestBody String imageUrl) {
+        //String result = imageService.analyzeImage(imageUrl);
+        // TODO: Convert the result to a response object and return it
+        return null;
+    }
 }

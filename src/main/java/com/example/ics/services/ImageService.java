@@ -9,4 +9,6 @@ public interface ImageService {
     List<ImageEntity> FindAllImages();
     Optional<ImageEntity> getById(Long id);
 
+    void analyzeImage(String imageUrl);
+
 }

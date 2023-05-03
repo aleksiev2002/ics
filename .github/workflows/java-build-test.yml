@@ -1,0 +1,23 @@
+name: Java Build and Test
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+
+    - name: Build without tests
+      run: mvn clean install -DskipTests=true
+
+    - name: Build and test
+      run: mvn clean install

@@ -2,7 +2,7 @@ name: Java Build and Test
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build-and-test:
@@ -15,9 +15,11 @@ jobs:
       uses: actions/setup-java@v2
       with:
         java-version: '11'
+        distribution: 'ubuntu'
 
     - name: Build without tests
       run: mvn clean install -DskipTests=true
 
     - name: Build and test
       run: mvn clean install
+

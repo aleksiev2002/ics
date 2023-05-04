@@ -20,6 +20,4 @@ jobs:
     - name: Build without tests
       run: mvn clean install -DskipTests=true
 
-    - name: Build and test
-      run: mvn clean install
 

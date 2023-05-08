@@ -3,10 +3,7 @@ package com.example.ics.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity(name = "tags")
 public class TagEntity {

@@ -2,9 +2,8 @@ package com.example.ics.models;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 @Entity(name = "images")
 public class ImageEntity {
@@ -16,10 +15,12 @@ public class ImageEntity {
     private String url;
 
 
-    private LocalDateTime uploaded_at;
+    @Column(name = "uploaded_at")
+    private LocalDateTime uploadedAt;
 
 
-    private String analyzed_with;
+    @Column(name = "analyzed_with")
+    private String analyzedWith;
 
     private int width;
 
@@ -46,20 +47,20 @@ public class ImageEntity {
         this.url = url;
     }
 
-    public LocalDateTime getUploaded_at() {
-        return uploaded_at;
+    public LocalDateTime getUploadedAt() {
+        return uploadedAt;
     }
 
-    public void setUploaded_at(LocalDateTime uploaded_at) {
-        this.uploaded_at = uploaded_at;
+    public void setUploadedAt(LocalDateTime uploadedAt) {
+        this.uploadedAt = uploadedAt;
     }
 
-    public String getAnalyzed_with() {
-        return analyzed_with;
+    public String getAnalyzedWith() {
+        return analyzedWith;
     }
 
-    public void setAnalyzed_with(String analyzed_with) {
-        this.analyzed_with = analyzed_with;
+    public void setAnalyzedWith(String analyzedWith) {
+        this.analyzedWith = analyzedWith;
     }
 
     public int getWidth() {
@@ -87,6 +88,8 @@ public class ImageEntity {
     }
 
     public ImageEntity() {
+        this.analyzedWith = "Imagga";
+        this.uploadedAt = LocalDateTime.now();
 
     }
 

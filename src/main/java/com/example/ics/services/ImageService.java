@@ -11,6 +11,6 @@ public interface ImageService {
     List<ImageEntity> FindAllImages();
     Optional<ImageEntity> getById(Long id);
 
-    Optional<ImageEntity> analyzeImage(String imageUrl);
+    Optional<ImageEntity> analyzeImage(String imageUrl) throws MalformedURLException;
 
 }

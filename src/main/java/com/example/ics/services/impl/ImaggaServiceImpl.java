@@ -2,6 +2,7 @@ package com.example.ics.services.impl;
 
 import com.example.ics.dto.TagDto;
 import com.example.ics.services.ImaggaService;
+import com.example.ics.services.exceptions.ImaggaServiceException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +21,8 @@ import java.util.stream.Collectors;
 public class ImaggaServiceImpl implements ImaggaService {
 
     @Override
-    public List<TagDto> getTagsForImage(String imageUrl) throws JsonProcessingException {
+    public List<TagDto> getTagsForImage(String imageUrl) {
+        try {
             String jsonResponse = getJsonResponseFromImagga(imageUrl);
             // Extract list of tags from response
             ObjectMapper mapper = new ObjectMapper();
@@ -36,13 +38,16 @@ public class ImaggaServiceImpl implements ImaggaService {
                 }
             }
 
-        // Sort the list by confidence rate in descending order
-        Collections.sort(tags, Comparator.comparingInt(TagDto::getConfidence).reversed());
+            // Sort the list by confidence rate in descending order
+            Collections.sort(tags, Comparator.comparingInt(TagDto::getConfidence).reversed());
 
-        // Take the first five tags
-        tags = tags.stream().limit(5).collect(Collectors.toList());
+            // Take the first five tags
+            tags = tags.stream().limit(5).collect(Collectors.toList());
 
-        return tags;
+            return tags;
+        } catch (JsonProcessingException e) {
+            throw new ImaggaServiceException("Error processing JSON response from Imagga API", e);
+        }
     }
     private String getJsonResponseFromImagga(String imageUrl) {
         String credentialsToEncode = "acc_d83c6c2a0e9725d" + ":" + "00172f01e99ba2b6f2dcb52ab34ff3f8";
@@ -58,17 +63,16 @@ public class ImaggaServiceImpl implements ImaggaService {
             connection.setRequestProperty("Authorization", "Basic " + basicAuth);
             int responseCode = connection.getResponseCode();
 
-            System.out.println("\nSending 'GET' request to URL : " + url);
-            System.out.println("Response Code : " + responseCode);
-            BufferedReader connectionInput = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-
-            String jsonResponse = connectionInput.readLine();
-
-            connectionInput.close();
-
-            return jsonResponse;
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader connectionInput = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String jsonResponse = connectionInput.readLine();
+                connectionInput.close();
+                return jsonResponse;
+            } else {
+                throw new ImaggaServiceException("Failed to get response from Imagga API. Response code: " + responseCode);
+            }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new ImaggaServiceException("Failed to get JSON response from Imagga API", e);
         }
     }
 }

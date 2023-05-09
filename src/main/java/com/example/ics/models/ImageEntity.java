@@ -11,19 +11,12 @@ public class ImageEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String url;
-
-
     @Column(name = "uploaded_at")
     private LocalDateTime uploadedAt;
-
-
     @Column(name = "analyzed_with")
     private String analyzedWith;
-
     private int width;
-
     private int height;
 
     @ManyToMany(cascade = CascadeType.ALL)

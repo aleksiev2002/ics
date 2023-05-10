@@ -1,7 +1,7 @@
 package com.example.ics.services.impl;
 
 
-import com.example.ics.dto.TagDto;
+import com.example.ics.dtos.TagDto;
 import com.example.ics.models.ImageEntity;
 import com.example.ics.models.TagEntity;
 import com.example.ics.repositories.ImageRepository;

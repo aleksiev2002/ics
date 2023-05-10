@@ -1,4 +1,4 @@
-package com.example.ics.dto;
+package com.example.ics.dtos;
 
 
 public class TagDto {

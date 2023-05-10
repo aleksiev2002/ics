@@ -1,6 +1,7 @@
 package com.example.ics.services.impl;
 
-import com.example.ics.dto.TagDto;
+import com.example.ics.configs.ImaggaConfig;
+import com.example.ics.dtos.TagDto;
 import com.example.ics.services.ImaggaService;
 import com.example.ics.services.exceptions.ImaggaServiceException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,6 +20,12 @@ import java.util.stream.Collectors;
 
 @Service
 public class ImaggaServiceImpl implements ImaggaService {
+
+    private final ImaggaConfig imaggaConfig;
+
+    public ImaggaServiceImpl(ImaggaConfig imaggaConfig) {
+        this.imaggaConfig = imaggaConfig;
+    }
 
     @Override
     public List<TagDto> getTagsForImage(String imageUrl) {
@@ -50,11 +57,10 @@ public class ImaggaServiceImpl implements ImaggaService {
         }
     }
     private String getJsonResponseFromImagga(String imageUrl) {
-        String credentialsToEncode = "acc_d83c6c2a0e9725d" + ":" + "00172f01e99ba2b6f2dcb52ab34ff3f8";
+        String credentialsToEncode =  imaggaConfig.getApiKey() + ":" + imaggaConfig.getSecretKey();
         String basicAuth = Base64.getEncoder().encodeToString(credentialsToEncode.getBytes(StandardCharsets.UTF_8));
 
-        String endpoint_url = "https://api.imagga.com/v2/tags";
-        String url = endpoint_url + "?image_url=" + imageUrl;
+        String url = imaggaConfig.getEndpointUrl() + "?image_url=" + imageUrl;
 
         try {
             URL urlObject = new URL(url);

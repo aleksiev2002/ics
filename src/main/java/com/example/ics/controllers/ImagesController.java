@@ -1,6 +1,6 @@
 package com.example.ics.controllers;
 
-import com.example.ics.dto.ImageUrlDto;
+import com.example.ics.dtos.ImageUrlDto;
 import com.example.ics.models.ImageEntity;
 import com.example.ics.services.ImageService;
 import org.springframework.web.bind.annotation.*;

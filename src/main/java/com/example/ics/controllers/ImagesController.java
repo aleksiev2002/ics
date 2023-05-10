@@ -1,5 +1,6 @@
 package com.example.ics.controllers;
 
+import com.example.ics.dto.ImageUrlDto;
 import com.example.ics.models.ImageEntity;
 import com.example.ics.services.ImageService;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +32,8 @@ public class ImagesController {
     }
 
     @PostMapping
-    public Optional<ImageEntity> analyzeImage(@RequestBody String imageUrl) throws MalformedURLException {
+    public Optional<ImageEntity> analyzeImage(@RequestBody ImageUrlDto imageUrlDto) throws MalformedURLException {
+        String imageUrl = imageUrlDto.getImageUrl();
         return imageService.analyzeImage(imageUrl);
     }
 }

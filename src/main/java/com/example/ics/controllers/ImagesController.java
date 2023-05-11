@@ -4,9 +4,7 @@ import com.example.ics.dtos.ImageUrlDto;
 import com.example.ics.models.ImageEntity;
 import com.example.ics.services.ImageService;
 import com.example.ics.utils.RequestThrottler;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.net.MalformedURLException;
 import java.util.List;

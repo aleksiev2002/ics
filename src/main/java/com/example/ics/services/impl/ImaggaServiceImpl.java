@@ -46,7 +46,7 @@ public class ImaggaServiceImpl implements ImaggaService {
             }
 
             // Sort the list by confidence rate in descending order
-            Collections.sort(tags, Comparator.comparingInt(TagDto::getConfidence).reversed());
+            tags.sort(Comparator.comparingInt(TagDto::getConfidence).reversed());
 
             // Take the first five tags
             tags = tags.stream().limit(5).collect(Collectors.toList());

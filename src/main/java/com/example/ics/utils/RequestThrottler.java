@@ -3,10 +3,11 @@ import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Duration;
-
+@Component
 public class RequestThrottler {
     private static final int REQUEST_LIMIT = 5;
     private static final int REQUEST_INTERVAL_MINUTES = 1;

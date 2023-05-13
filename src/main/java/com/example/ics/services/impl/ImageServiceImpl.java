@@ -16,13 +16,18 @@ import org.springframework.stereotype.Service;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.io.*;
+import java.math.BigInteger;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.security.DigestInputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -51,8 +56,19 @@ public class ImageServiceImpl implements ImageService {
     public Optional<ImageEntity> analyzeImage(String imageUrl) throws MalformedURLException {
         //Checks if the image URL is valid and if it's an image.
         validateImage(imageUrl);
+        String checksum;
+        try {
+            // Download the image from the URL and save it to a temporary file
+            File tempFile = downloadImage(imageUrl);
+            // Generate the checksum for the downloaded image file
+            checksum = generateMD5Checksum(tempFile);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+
         //Check if image already exists in DB
-        Optional<ImageEntity> existingImage = getImageByUrl(imageUrl);
+        Optional<ImageEntity> existingImage = getImageByChecksum(checksum);
         if (existingImage.isPresent()) {
             return existingImage;
         }
@@ -60,9 +76,9 @@ public class ImageServiceImpl implements ImageService {
         List<TagDto> tagDtos = getTagsForImage(imageUrl);
 
         // Create new image entity, with all related tags
-        ImageEntity imageEntity = createImageEntity(imageUrl, tagDtos);
+        ImageEntity imageEntity = createImageEntity(imageUrl, tagDtos, checksum);
         saveImageEntity(imageEntity);
-        return getImageByUrl(imageUrl);
+        return getImageByChecksum(checksum);
     }
 
     private Dimension getImageDimensions(String imageUrl) throws IOException {
@@ -89,8 +105,8 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
-    private Optional<ImageEntity> getImageByUrl(String imageUrl) {
-        return imageRepository.findByUrl(imageUrl);
+    private Optional<ImageEntity> getImageByChecksum(String checksum) {
+        return imageRepository.findByChecksum(checksum);
     }
 
     private List<TagDto> getTagsForImage(String imageUrl) {
@@ -100,11 +116,48 @@ public class ImageServiceImpl implements ImageService {
             throw new RuntimeException("Cannot get tags for image", e);
         }
     }
+    private File downloadImage(String imageUrl) throws IOException {
+        URL url = new URL(imageUrl);
+        InputStream in = url.openStream();
+        Path tempFilePath = Files.createTempFile("image", ".tmp");
+        File tempFile = tempFilePath.toFile();
+        try (OutputStream out = new FileOutputStream(tempFile)) {
+            byte[] buffer = new byte[8192];
+            int bytesRead;
+            while ((bytesRead = in.read(buffer)) != -1) {
+                out.write(buffer, 0, bytesRead);
+            }
+        }
+        return tempFile;
+    }
 
-    private ImageEntity createImageEntity(String imageUrl, List<TagDto> tagDtos) {
+    private String generateMD5Checksum(File file) throws NoSuchAlgorithmException, IOException {
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        try (FileInputStream fis = new FileInputStream(file);
+             DigestInputStream dis = new DigestInputStream(fis, md)) {
+            // Read the file content and update the message digest
+            byte[] buffer = new byte[8192];
+            while (dis.read(buffer) != -1) {
+                // Reading and discarding the content as we only need the checksum
+            }
+        }
+        byte[] checksumBytes = md.digest();
+        return bytesToHex(checksumBytes);
+    }
+    private String bytesToHex(byte[] bytes) {
+        BigInteger number = new BigInteger(1, bytes);
+        StringBuilder hexString = new StringBuilder(number.toString(16));
+        while (hexString.length() < 32) {
+            hexString.insert(0, '0');
+        }
+        return hexString.toString();
+    }
+
+    private ImageEntity createImageEntity(String imageUrl, List<TagDto> tagDtos, String checksum) {
         ImageEntity imageEntity = new ImageEntity();
         imageEntity.setUrl(imageUrl);
-        imageEntity.setChecksum("no checkSum");
+        imageEntity.setChecksum(checksum);
+
         try {
             Dimension imageSize = getImageDimensions(imageUrl);
             imageEntity.setWidth(imageSize.width);

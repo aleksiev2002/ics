@@ -28,6 +28,7 @@ public class ImageEntity {
     private String analyzedWith = "Imagga";
     private int width;
     private int height;
+    @Column(nullable = false)
     private String checksum;
 
     @ManyToMany(cascade = CascadeType.ALL)

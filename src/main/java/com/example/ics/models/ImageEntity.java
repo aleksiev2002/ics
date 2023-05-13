@@ -1,6 +1,8 @@
 package com.example.ics.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import java.util.List;
 @Entity(name = "images")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ImageEntity {
 
     @Id
@@ -24,6 +28,7 @@ public class ImageEntity {
     private String analyzedWith = "Imagga";
     private int width;
     private int height;
+    private String checksum;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "image_tags",

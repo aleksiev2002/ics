@@ -12,6 +12,7 @@ import com.example.ics.utils.ImageUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.stereotype.Service;
 
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 public class ImageServiceImpl implements ImageService {
@@ -36,7 +38,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<ImageEntity> FindAllImages() {
+    public List<ImageEntity> getAllImages() {
         return imageRepository.findAll();
     }
 
@@ -102,12 +104,12 @@ public class ImageServiceImpl implements ImageService {
     private ImageEntity createImageEntity(String imageUrl, List<TagDto> tagDtos) {
         ImageEntity imageEntity = new ImageEntity();
         imageEntity.setUrl(imageUrl);
+        imageEntity.setChecksum("no checkSum");
         try {
             Dimension imageSize = getImageDimensions(imageUrl);
             imageEntity.setWidth(imageSize.width);
             imageEntity.setHeight(imageSize.height);
         } catch (Exception e) {
-            // Handle exception if the image dimensions cannot be obtained
             e.printStackTrace();
         }
         List<TagEntity> tagEntities = createTagEntities(tagDtos);
@@ -126,12 +128,9 @@ public class ImageServiceImpl implements ImageService {
 
     private TagEntity createTagEntity(TagDto tagDto) {
         String tagName = tagDto.getName();
-        TagEntity tagEntity = tagRepository.findByName(tagName);
-        if (tagEntity == null) {
-            tagEntity = new TagEntity();
-            tagEntity.setName(tagName);
-            tagRepository.save(tagEntity);
-        }
+        TagEntity tagEntity = new TagEntity();
+        tagEntity.setName(tagName);
+        tagRepository.save(tagEntity);
         tagEntity.setConfidence(tagDto.getConfidence());
         return tagEntity;
     }

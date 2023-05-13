@@ -25,7 +25,7 @@ public class ImagesController {
 
     @GetMapping
     public List<ImageEntity> findAllImages() {
-        return imageService.FindAllImages();
+        return imageService.getAllImages();
     }
 
     @GetMapping
@@ -39,6 +39,7 @@ public class ImagesController {
         requestThrottler.consumeRequest();
 
         String imageUrl = imageUrlDto.getImageUrl();
+
         return imageService.analyzeImage(imageUrl);
     }
 }

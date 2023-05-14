@@ -66,7 +66,6 @@ public class ImageServiceImpl implements ImageService {
             throw new RuntimeException(e);
         }
 
-
         //Check if image already exists in DB
         Optional<ImageEntity> existingImage = getImageByChecksum(checksum);
         if (existingImage.isPresent()) {
@@ -111,7 +110,7 @@ public class ImageServiceImpl implements ImageService {
 
     private List<TagDto> getTagsForImage(String imageUrl) {
         try {
-            return imaggaService.getTagsForImage(imageUrl);
+            return imaggaService.getTagsForImageFromImagga(imageUrl);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Cannot get tags for image", e);
         }

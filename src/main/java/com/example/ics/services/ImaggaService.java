@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ImaggaService {
 
-    List<TagDto> getTagsForImage(String imageUrl) throws JsonProcessingException;
+    List<TagDto> getTagsForImageFromImagga(String imageUrl) throws JsonProcessingException;
 }

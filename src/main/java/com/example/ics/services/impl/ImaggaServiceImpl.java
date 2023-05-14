@@ -64,7 +64,7 @@ public class ImaggaServiceImpl implements ImaggaService {
 
         try {
             URL urlObject = new URL(url);
-            HttpURLConnection connection = null;
+            HttpURLConnection connection;
             connection = (HttpURLConnection) urlObject.openConnection();
             connection.setRequestProperty("Authorization", "Basic " + basicAuth);
             int responseCode = connection.getResponseCode();

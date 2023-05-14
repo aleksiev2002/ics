@@ -28,7 +28,7 @@ public class ImaggaServiceImpl implements ImaggaService {
     }
 
     @Override
-    public List<TagDto> getTagsForImage(String imageUrl) {
+    public List<TagDto> getTagsForImageFromImagga(String imageUrl) {
         try {
             String jsonResponse = getJsonResponseFromImagga(imageUrl);
             // Extract list of tags from response

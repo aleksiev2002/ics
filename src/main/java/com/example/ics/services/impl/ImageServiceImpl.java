@@ -80,55 +80,7 @@ public class ImageServiceImpl implements ImageService {
         return getImageByChecksum(checksum);
     }
 
-    @Override
-    public ImageEntity createImageEntity(String imageUrl, List<TagDto> tagDtos, String checksum) {
-        ImageEntity imageEntity = new ImageEntity();
-        imageEntity.setUrl(imageUrl);
-        imageEntity.setChecksum(checksum);
-
-        try {
-            Dimension imageSize = getImageDimensions(imageUrl);
-            imageEntity.setWidth(imageSize.width);
-            imageEntity.setHeight(imageSize.height);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        List<TagEntity> tagEntities = createTagEntities(tagDtos);
-        imageEntity.setTags(tagEntities);
-        return imageEntity;
-    }
-
-    @Override
-    public TagEntity createTagEntity(TagDto tagDto) {
-        String tagName = tagDto.getName();
-        TagEntity tagEntity = new TagEntity();
-        tagEntity.setName(tagName);
-        tagRepository.save(tagEntity);
-        tagEntity.setConfidence(tagDto.getConfidence());
-        return tagEntity;
-    }
-
-    @Override
-    public List<TagEntity> createTagEntities(List<TagDto> tagDtos) {
-        List<TagEntity> tagEntities = new ArrayList<>();
-        for (TagDto tagDto : tagDtos) {
-            TagEntity tagEntity = createTagEntity(tagDto);
-            tagEntities.add(tagEntity);
-        }
-        return tagEntities;
-    }
-
-    @Override
-    public List<TagDto> getTagsForImage(String imageUrl) {
-        try {
-            return imaggaService.getTagsForImageFromImagga(imageUrl);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Cannot get tags for image", e);
-        }
-    }
-
-    @Override
-    public Dimension getImageDimensions(String imageUrl) throws IOException {
+    private Dimension getImageDimensions(String imageUrl) throws IOException {
 
         URL imageSizeUrl;
         try {
@@ -142,8 +94,8 @@ public class ImageServiceImpl implements ImageService {
         }
 
     }
-    @Override
-    public void validateImage(String imageUrl) throws MalformedURLException {
+
+    private void validateImage(String imageUrl) throws MalformedURLException {
         if (!ImageUtils.isURLValid(imageUrl)) {
             throw new MalformedURLException("Invalid URL");
         }
@@ -156,6 +108,13 @@ public class ImageServiceImpl implements ImageService {
         return imageRepository.findByChecksum(checksum);
     }
 
+    private List<TagDto> getTagsForImage(String imageUrl) {
+        try {
+            return imaggaService.getTagsForImageFromImagga(imageUrl);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Cannot get tags for image", e);
+        }
+    }
     private File downloadImage(String imageUrl) throws IOException {
         URL url = new URL(imageUrl);
         InputStream in = url.openStream();
@@ -191,6 +150,41 @@ public class ImageServiceImpl implements ImageService {
             hexString.insert(0, '0');
         }
         return hexString.toString();
+    }
+
+    private ImageEntity createImageEntity(String imageUrl, List<TagDto> tagDtos, String checksum) {
+        ImageEntity imageEntity = new ImageEntity();
+        imageEntity.setUrl(imageUrl);
+        imageEntity.setChecksum(checksum);
+
+        try {
+            Dimension imageSize = getImageDimensions(imageUrl);
+            imageEntity.setWidth(imageSize.width);
+            imageEntity.setHeight(imageSize.height);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        List<TagEntity> tagEntities = createTagEntities(tagDtos);
+        imageEntity.setTags(tagEntities);
+        return imageEntity;
+    }
+
+    private List<TagEntity> createTagEntities(List<TagDto> tagDtos) {
+        List<TagEntity> tagEntities = new ArrayList<>();
+        for (TagDto tagDto : tagDtos) {
+            TagEntity tagEntity = createTagEntity(tagDto);
+            tagEntities.add(tagEntity);
+        }
+        return tagEntities;
+    }
+
+    private TagEntity createTagEntity(TagDto tagDto) {
+        String tagName = tagDto.getName();
+        TagEntity tagEntity = new TagEntity();
+        tagEntity.setName(tagName);
+        tagRepository.save(tagEntity);
+        tagEntity.setConfidence(tagDto.getConfidence());
+        return tagEntity;
     }
 
     private void saveImageEntity(ImageEntity imageEntity) {

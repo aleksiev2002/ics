@@ -4,9 +4,7 @@ import com.example.ics.dtos.ImageUrlDto;
 import com.example.ics.models.ImageEntity;
 import com.example.ics.services.ImageService;
 import com.example.ics.utils.RequestThrottler;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.net.MalformedURLException;
 import java.util.List;
@@ -32,14 +30,8 @@ public class ImagesController {
 
     @GetMapping
     @RequestMapping("{id}")
-    public ImageEntity get(@PathVariable Long id) {
-        Optional<ImageEntity> imageEntityOptional = imageService.getById(id);
-
-        if (imageEntityOptional.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Image not found");
-        }
-
-        return imageEntityOptional.get();
+    public Optional<ImageEntity> get(@PathVariable Long id) {
+        return imageService.getById(id);
     }
 
     @PostMapping

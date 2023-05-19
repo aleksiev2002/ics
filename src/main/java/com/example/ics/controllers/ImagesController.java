@@ -24,7 +24,7 @@ public class ImagesController {
         this.requestThrottler = requestThrottler;
     }
 
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping
     public List<ImageEntity> findAllImages() {
         return imageService.getAllImages();

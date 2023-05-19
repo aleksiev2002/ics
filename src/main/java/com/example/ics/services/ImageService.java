@@ -4,7 +4,7 @@ import com.example.ics.dtos.TagDto;
 import com.example.ics.models.ImageEntity;
 import com.example.ics.models.TagEntity;
 
-import java.awt.*;
+import java.awt.Dimension;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;

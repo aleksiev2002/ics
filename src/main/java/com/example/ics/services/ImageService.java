@@ -3,6 +3,8 @@ package com.example.ics.services;
 import com.example.ics.dtos.TagDto;
 import com.example.ics.models.ImageEntity;
 import com.example.ics.models.TagEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.awt.Dimension;
 import java.io.IOException;
@@ -11,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ImageService {
-    List<ImageEntity> getAllImages();
+    Page<ImageEntity> getAllImages(PageRequest pageRequest);
 
     Optional<ImageEntity> getById(Long id);
 

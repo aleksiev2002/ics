@@ -22,7 +22,7 @@ class ImagesControllerTest {
                 .get("/images")
                 .then()
                 .statusCode(200)
-                .body("$", hasSize(greaterThan(0))); // Assuming I have at least one image in the db
+                .body("content", hasSize(greaterThan(0))); // Assuming I have at least one image in the db
     }
 
     @Test

@@ -4,12 +4,13 @@ import com.example.ics.dtos.ImageUrlDto;
 import com.example.ics.models.ImageEntity;
 import com.example.ics.services.ImageService;
 import com.example.ics.utils.RequestThrottler;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.MalformedURLException;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,8 +27,9 @@ public class ImagesController {
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping
-    public List<ImageEntity> findAllImages() {
-        return imageService.getAllImages();
+    public Page<ImageEntity> findAllImages(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(name = "size", defaultValue = "5") int size) {
+        PageRequest pr = PageRequest.of(page, size);
+        return imageService.getAllImages(pr);
     }
 
     @GetMapping

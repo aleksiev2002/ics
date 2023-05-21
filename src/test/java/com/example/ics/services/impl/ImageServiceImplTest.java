@@ -10,8 +10,10 @@ import com.example.ics.services.ImaggaService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.PageRequest;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -19,8 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
@@ -48,10 +49,16 @@ class ImageServiceImplTest {
 
     @Test
     void testCanGetAllImages() {
+        PageRequest pageRequest = PageRequest.of(0, 3);
         //when
-        underTest.getAllImages();
+        underTest.getAllImages(pageRequest);
         //then
-        verify(imageRepository).findAll();
+        ArgumentCaptor<PageRequest> pageRequestCaptor = ArgumentCaptor.forClass(PageRequest.class);
+        verify(imageRepository).findAll(pageRequestCaptor.capture());
+
+        PageRequest capturedPageRequest = pageRequestCaptor.getValue();
+        assertEquals(0, capturedPageRequest.getPageNumber());
+        assertEquals(3, capturedPageRequest.getPageSize());
     }
 
 

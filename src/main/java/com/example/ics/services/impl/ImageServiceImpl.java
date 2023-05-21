@@ -10,6 +10,8 @@ import com.example.ics.services.ImageService;
 import com.example.ics.services.ImaggaService;
 import com.example.ics.utils.ImageUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 
@@ -48,8 +50,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public List<ImageEntity> getAllImages() {
-        return imageRepository.findAll();
+    public Page<ImageEntity> getAllImages(PageRequest pageRequest) {
+        return imageRepository.findAll(pageRequest);
     }
 
     @Override

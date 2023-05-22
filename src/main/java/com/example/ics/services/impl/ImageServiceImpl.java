@@ -27,7 +27,6 @@ import java.io.InputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.math.BigInteger;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -62,7 +61,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Optional<ImageEntity> analyzeImage(String imageUrl) throws MalformedURLException {
+    public Optional<ImageEntity> analyzeImage(String imageUrl) {
         //Checks if the image URL is valid and if it's an image.
         validateImage(imageUrl);
         String checksum;

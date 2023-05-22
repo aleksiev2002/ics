@@ -12,7 +12,9 @@ import com.example.ics.utils.ImageUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import javax.imageio.ImageIO;
@@ -150,12 +152,12 @@ public class ImageServiceImpl implements ImageService {
 
     }
     @Override
-    public void validateImage(String imageUrl) throws MalformedURLException {
+    public void validateImage(String imageUrl) throws ResponseStatusException {
         if (!ImageUtils.isURLValid(imageUrl)) {
-            throw new MalformedURLException("Invalid URL");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid URL");
         }
         if (!ImageUtils.isImage(imageUrl)) {
-            throw new MalformedURLException("Not an image");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not an image URL");
         }
     }
 

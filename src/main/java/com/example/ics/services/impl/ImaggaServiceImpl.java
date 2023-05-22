@@ -7,6 +7,7 @@ import com.example.ics.services.exceptions.ImaggaServiceException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -56,7 +57,7 @@ public class ImaggaServiceImpl implements ImaggaService {
 
             return tags;
         } catch (JsonProcessingException e) {
-            throw new ImaggaServiceException("Error processing JSON response from Imagga API", e);
+            throw new ImaggaServiceException(HttpStatus.BAD_REQUEST, "Error processing JSON response from Imagga API", e);
         }
     }
     private String getJsonResponseFromImagga(String imageUrl) {
@@ -78,10 +79,10 @@ public class ImaggaServiceImpl implements ImaggaService {
                 connectionInput.close();
                 return jsonResponse;
             } else {
-                throw new ImaggaServiceException("Failed to get response from Imagga API. Response code: " + responseCode);
+                throw new ImaggaServiceException(HttpStatus.BAD_REQUEST, "Failed to get response from Imagga API. Response code: ");
             }
         } catch (IOException e) {
-            throw new ImaggaServiceException("Failed to get JSON response from Imagga API", e);
+            throw new ImaggaServiceException(HttpStatus.BAD_REQUEST, "Failed to get JSON response from Imagga API", e);
         }
     }
 }

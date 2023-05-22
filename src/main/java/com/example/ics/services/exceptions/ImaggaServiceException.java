@@ -1,10 +1,14 @@
 package com.example.ics.services.exceptions;
 
-public class ImaggaServiceException extends RuntimeException {
-    public ImaggaServiceException(String message, Throwable cause) {
-        super(message, cause);
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
+public class ImaggaServiceException extends ResponseStatusException {
+    public ImaggaServiceException(HttpStatus status, String reason, Throwable cause) {
+        super(status, reason, cause);
     }
-        public ImaggaServiceException(String message) {
-            super(message, null);
-        }
+
+    public ImaggaServiceException(HttpStatus status, String reason) {
+        super(status, reason);
+    }
 }

@@ -31,7 +31,7 @@ public class ImagesController {
         PageRequest pr = PageRequest.of(page, size);
         return imageService.getAllImages(pr);
     }
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping
     @RequestMapping("{id}")
     public ImageEntity get(@PathVariable Long id) {
@@ -43,7 +43,7 @@ public class ImagesController {
 
         return imageEntityOptional.get();
     }
-
+    @CrossOrigin(origins = "http://localhost:4200/")
     @PostMapping
     public Optional<ImageEntity> analyzeImage(@RequestBody ImageUrlDto imageUrlDto) throws MalformedURLException {
         requestThrottler.consumeRequest();

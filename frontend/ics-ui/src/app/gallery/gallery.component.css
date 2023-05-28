@@ -1,0 +1,77 @@
+.card-text.tags-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card-text.tags-row .label {
+  margin-right: 5px;
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.btn-pagination {
+  background-color: hsl(282, 43%, 54%);
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.btn-pagination.prev {
+  margin-right: 1rem;
+}
+
+.btn-pagination.next {
+  margin-left: 1rem;
+}
+
+#page-size-select {
+  margin-right: 1rem;
+  height: 2rem;
+}
+
+.clr-icon {
+  color: white;
+  font-size: 1.25rem;
+  margin-right: 0.25rem;
+}
+
+.label {
+  position: relative;
+  cursor: pointer;
+}
+
+.label::after {
+  content: attr(title);
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.25rem 0.5rem;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  font-size: 0.75rem;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.label:hover::after {
+  opacity: 0.8;
+  visibility: visible;
+}
+
+.card.clickable {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+

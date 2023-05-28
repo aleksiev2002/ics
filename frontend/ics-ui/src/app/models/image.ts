@@ -10,3 +10,8 @@ export interface Image {
   checksum: string;
   tags: Tag[];
 }
+
+export interface AllImages {
+  content: Image[];
+  totalPages: number;
+}

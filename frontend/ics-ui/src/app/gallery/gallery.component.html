@@ -1,8 +1,29 @@
-<h1>Gallery</h1>
-  <div *ngFor="let image of images">
-    <img src={{image?.url}} alt="Image {{image.id}}">
-    <div *ngFor="let tag of image.tags">
-      <span>{{tag.name}}</span>
+<div class="card-columns">
+  <div class="card clickable" *ngFor="let image of images" (click)="viewImage(image.id)">
+    <div class="card-img">
+      <img src="{{image?.url}}" alt="Image:{{image.id}}">
+    </div>
+    <div class="card-block">
+      <div class="card-text tags-row">
+        <span class="label" *ngFor="let tag of image.tags" [title]="'Confidence: ' + tag.confidence">{{tag.name}}</span>
+      </div>
     </div>
   </div>
+</div>
 
+
+<div class="pagination-controls">
+  <select id="page-size-select" [(ngModel)]="pageSize" (ngModelChange)="getImages()">
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+  </select>
+
+  <button class="btn-pagination prev" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">
+    <clr-icon shape="angle left"></clr-icon> Previous Page
+  </button>
+
+  <button class="btn-pagination next" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages-1">
+    Next Page <clr-icon shape="angle right"></clr-icon>
+  </button>
+</div>

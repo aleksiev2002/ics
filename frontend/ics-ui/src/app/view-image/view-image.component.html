@@ -1,0 +1,22 @@
+<clr-main-container>
+  <div *ngIf="imageData" class="view-image-page">
+    <div class="image-info">
+      <i class="fas fa-images icon"></i>
+      <div class="tags-heading">
+        <h3>Tags:</h3>
+      </div>
+      <div class="tags-container">
+        <div class="tag" *ngFor="let tag of imageData.tags">
+          <div class="tag-content">
+            <span class="tag-name">{{tag.name}}</span>
+            <span class="tag-confidence">Confidence: {{tag.confidence}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="image-container">
+      <img class="image" [src]="imageData.url" alt="Submitted Image">
+    </div>
+    <button class="btn-back" (click)="goBack()">Go Back</button>
+  </div>
+</clr-main-container>

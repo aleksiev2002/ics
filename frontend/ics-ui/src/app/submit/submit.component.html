@@ -1,0 +1,27 @@
+<clr-main-container>
+  <div class="submit-page">
+    <div *ngIf="!submitted" class="submit-form">
+      <h2 class="submit-title">Submit Image</h2>
+      <form (ngSubmit)="onSubmit()" #imageForm="ngForm" class="clr-form">
+        <div class="form-group">
+          <label for="imageUrl" class="clr-control-label">Image URL:</label>
+          <input clrInput id="imageUrl" name="imageUrl" [(ngModel)]="imageUrl" required>
+        </div>
+        <div class="submit-actions">
+          <button class="btn-submit" type="submit" [disabled]="loading || imageForm.invalid">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="submitted" class="submitted-info">
+      <h2 class="submitted-title">Image Submitted!</h2>
+      <div class="submit-actions">
+        <button class="btn-view-image" (click)="viewImage()">
+          View Image
+        </button>
+      </div>
+    </div>
+  </div>
+</clr-main-container>

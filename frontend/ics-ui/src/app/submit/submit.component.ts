@@ -1,7 +1,6 @@
 import {Component} from "@angular/core";
 import {Router} from "@angular/router";
 import {ImageService} from "../image.service";
-import {ImageDataService} from "../image-data.service";
 import {Image} from "../models/image";
 
 @Component({
@@ -13,8 +12,9 @@ export class SubmitComponent {
   loading: boolean = false;
   submitted: boolean = false;
   imageUrl: string = '';
+  image!: Image;
 
-  constructor(private imageService: ImageService,private imageDataService: ImageDataService,private router: Router) {}
+  constructor(private imageService: ImageService,private router: Router) {}
 
   onSubmit(): void {
     this.loading = true;
@@ -26,17 +26,21 @@ export class SubmitComponent {
           next: (response: Image) => {
             this.loading = false;
             this.submitted = true;
-            this.imageDataService.setImageData(response);
+            this.image = response;
 
           },
           error: (error) => {
             this.loading = false;
-            console.error('An error occurred during image analysis:', error);
-            alert('An error occurred during image analysis. Please try again.');
+            const errorMessage = error.error.message;
+            alert('An error occurred during image analysis. Error: ' + errorMessage);
           }
         });
   }
-  viewImage(): void {
-    this.router.navigate(['/view']);
+  viewImage(id: number): void {
+    this.router.navigate(['/image', id]).then(() => {
+
+    }).catch((error) => {
+      alert(error)
+    });
   }
 }

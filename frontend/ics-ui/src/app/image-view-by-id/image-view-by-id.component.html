@@ -17,6 +17,9 @@
     <div class="image-container">
       <img class="image" [src]="image.url" alt="Submitted Image">
     </div>
-    <button class="btn-back" (click)="goBack()">Go Back</button>
+    <div class="button-container">
+    <button class="btn-back" (click)="goBackToGallery()">Gallery</button>
+    <button class="btn-back" (click)="goBackToSubmit()">Home</button>
+    </div>
   </div>
 </clr-main-container>

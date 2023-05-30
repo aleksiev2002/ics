@@ -42,7 +42,11 @@ export class GalleryComponent implements OnInit {
   }
 
   viewImage(id: number): void {
-    this.router.navigate(['/image', id]);
+    this.router.navigate(['/image', id]).then(() => {
+
+    }).catch((error) => {
+      alert(error)
+    });
   }
 
 }

@@ -31,13 +31,22 @@ export class ImageViewByIdComponent implements OnInit{
         this.image = response
       },
       error: (error: HttpErrorResponse) => {
-        alert(error.error.message);
+        if(error.status === 404) {
+          this.router.navigateByUrl("**").catch((error) => alert(error));
+        }
       }
     });
   }
 
-  goBack(): void {
+  goBackToGallery(): void {
     this.router.navigate(['/gallery']).then(() => {
+
+    }).catch((error) => {
+      alert(error)
+    });
+  }
+  goBackToSubmit(): void {
+    this.router.navigate(['/submit']).then(() => {
 
     }).catch((error) => {
       alert(error)

@@ -10,10 +10,10 @@ import {NavbarComponent} from "./navbar/navbar.component";
 import {FooterComponent} from "./footer/footer.component";
 import {FormsModule} from "@angular/forms";
 import {SubmitComponent} from "./submit/submit.component";
-import {ViewImageComponent} from "./view-image/view-image.component";
 import {ClarityModule} from "@clr/angular";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ImageViewByIdComponent } from './image-view-by-id/image-view-by-id.component';
+import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -22,17 +22,17 @@ import { ImageViewByIdComponent } from './image-view-by-id/image-view-by-id.comp
     NavbarComponent,
     FooterComponent,
     SubmitComponent,
-    ViewImageComponent,
-    ImageViewByIdComponent
+    ImageViewByIdComponent,
+    NotFoundPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     CommonModule,
     FormsModule,
     ClarityModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -20,10 +20,10 @@
   </select>
 
   <button class="btn-pagination prev" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">
-    <clr-icon shape="angle left"></clr-icon> Previous Page
+    Previous Page
   </button>
 
   <button class="btn-pagination next" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages-1">
-    Next Page <clr-icon shape="angle right"></clr-icon>
+    Next Page
   </button>
 </div>

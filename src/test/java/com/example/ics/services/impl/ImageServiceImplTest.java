@@ -14,8 +14,9 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -83,8 +84,12 @@ class ImageServiceImplTest {
     void testValidateImageWithInvalidImageUrlThatThrowsMalformedURLException() {
         String invalidImageUrl = "https://example.com/not-an-image.txt";
 
-        assertThrows(MalformedURLException.class, () -> underTest.validateImage(invalidImageUrl));
+        ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> underTest.validateImage(invalidImageUrl));
+
+        assertEquals(HttpStatus.BAD_REQUEST, exception.getStatusCode());
+        assertEquals("Invalid URL", exception.getReason());
     }
+
 
     @Test
     void testCreateTagEntityWithValidTagDtoThatReturnsTagEntityWithCorrectProperties() {

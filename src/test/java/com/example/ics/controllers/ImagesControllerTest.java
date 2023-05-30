@@ -1,13 +1,12 @@
 package com.example.ics.controllers;
 
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ImagesControllerTest {
 
     @BeforeEach
@@ -78,29 +77,37 @@ class ImagesControllerTest {
                 .statusCode(400);
     }
 
-//    @Test
-//    void testAnalyzeImageWithRequestThrottlingThatEnforcesRateLimit() {
-//        String imageUrl = "https://car-images.bauersecure.com/wp-images/13221/everrati911_00.jpg"; // Valid image URL
-//        // Perform consecutive requests beyond the allowed rate
-//        for (int i = 0; i < 5; i++) {
-//            given()
-//                    .contentType("application/json")
-//                    .body("{\"imageUrl\":\"" + imageUrl + "\"}")
-//                    .when()
-//                    .post("/images")
-//                    .then()
-//                    .statusCode(200);
-//        }
-//
-//        // Attempt one more request, which should be throttled
-//        given()
-//                .contentType("application/json")
-//                .body("{\"imageUrl\":\"https://example.com/image.jpg\"}")
-//                .when()
-//                .post("/images")
-//                .then()
-//                .statusCode(429);
-//    }
+
+
+    @Test
+    @Order(Integer.MAX_VALUE)
+    void testAnalyzeImageWithRequestThrottlingThatEnforcesRateLimit() {
+        try {
+            Thread.sleep(60000); // Sleep for 1 minute
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        String imageUrl = "https://car-images.bauersecure.com/wp-images/13221/everrati911_00.jpg"; // Valid image URL
+        // Perform consecutive requests beyond the allowed rate
+        for (int i = 0; i < 5; i++) {
+            given()
+                    .contentType("application/json")
+                    .body("{\"imageUrl\":\"" + imageUrl + "\"}")
+                    .when()
+                    .post("/images")
+                    .then()
+                    .statusCode(200);
+        }
+
+        // Attempt one more request, which should be throttled
+        given()
+                .contentType("application/json")
+                .body("{\"imageUrl\":\"https://example.com/image.jpg\"}")
+                .when()
+                .post("/images")
+                .then()
+                .statusCode(429);
+    }
 
 
 

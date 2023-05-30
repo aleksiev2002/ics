@@ -17,6 +17,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +28,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 
@@ -124,5 +129,51 @@ class ImageServiceImplTest {
         assertThat(result).hasSize(tagDtos.size());
     }
 
-//TODO: Create tests for - analyzeImage, getImageDimensions, getTagsForImage, createImageEntity
+    @Test
+    void testCreateTagEntity() {
+        TagDto tagDto = new TagDto();
+        tagDto.setName("Tag Name");
+        tagDto.setConfidence(80);
+
+        // Call the method
+        TagEntity result = underTest.createTagEntity(tagDto);
+
+        // Assert the properties of the created tag entity as per your test case
+        assertThat(result.getName()).isEqualTo(tagDto.getName());
+        assertThat(result.getConfidence()).isEqualTo(tagDto.getConfidence());
+
+        // Verify that the tag entity was saved
+        verify(tagRepository).save(result);
+    }
+
+    @Test
+    void testGetImageDimensions() throws IOException {
+        String imageUrl = "https://eurica.me/wp-content/uploads/2023/02/lamborghini-autentica4.jpg";
+
+        int expectedWidth = 1920;
+        int expectedHeight = 1080;
+
+
+        // Call the method
+        Dimension result = underTest.getImageDimensions(imageUrl);
+
+        // Assert the dimensions of the image as per your test case
+        assertThat(result.width).isEqualTo(expectedWidth);
+        assertThat(result.height).isEqualTo(expectedHeight);
+    }
+
+    @Test
+    void testCreateImageEntity() {
+        String imageUrl = "https://www.humanesociety.org/sites/default/files/2019/02/dog-451643.jpg";
+        String checksum = "example_checksum";
+        List<TagDto> tagDtos = new ArrayList<>();
+
+        // Call the method
+        ImageEntity result = underTest.createImageEntity(imageUrl, tagDtos, checksum);
+
+
+        assertThat(result.getUrl()).isEqualTo(imageUrl);
+        assertThat(result.getChecksum()).isEqualTo(checksum);
+    }
+
 }

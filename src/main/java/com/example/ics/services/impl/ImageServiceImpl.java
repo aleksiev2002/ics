@@ -160,7 +160,7 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
-    private Optional<ImageEntity> getImageByChecksum(String checksum) {
+    public Optional<ImageEntity> getImageByChecksum(String checksum) {
         return imageRepository.findByChecksum(checksum);
     }
 

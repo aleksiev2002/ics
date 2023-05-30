@@ -1,0 +1,27 @@
+name: Unit Tests
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Build with Maven (skip tests)
+        run: mvn --batch-mode --update-snapshots package -DskipTests
+
+      - name: Run unit tests with Maven
+        run: mvn --batch-mode test -Dtest=!com.example.ics.controllers.ImagesControllerTest

@@ -23,4 +23,8 @@ export class ImageService {
   public analyzeImage(imageUrl: string): Observable<Image> {
     return this.http.post<Image>(this.apiServerUrl, {imageUrl});
   }
+
+  getApiServerUrl(): string {
+    return this.apiServerUrl;
+  }
 }

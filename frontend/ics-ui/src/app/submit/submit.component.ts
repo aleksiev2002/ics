@@ -14,11 +14,10 @@ export class SubmitComponent {
   imageUrl: string = '';
   image!: Image;
 
-  constructor(private imageService: ImageService,private router: Router) {}
+  constructor(private imageService: ImageService,public router: Router) {}
 
   onSubmit(): void {
     this.loading = true;
-
 
     this.imageService.analyzeImage(this.imageUrl)
       .subscribe(

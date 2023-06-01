@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -51,5 +52,11 @@ public class ImagesController {
         String imageUrl = imageUrlDto.getImageUrl();
 
         return imageService.analyzeImage(imageUrl);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200/")
+    @GetMapping("/tags")
+    public List<ImageEntity> searchImagesByTags(@RequestParam("tags") List<String> tags) {
+        return imageService.searchImagesByTags(tags);
     }
 }

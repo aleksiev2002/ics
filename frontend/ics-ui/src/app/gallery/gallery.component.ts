@@ -15,6 +15,8 @@ export class GalleryComponent implements OnInit {
   public pageSize: number = 5;
   public totalPages: number = 0;
 
+  private readonly CONFIDENCE = 'Confidence';
+
   constructor(private imageService: ImageService, private router: Router) {};
 
   ngOnInit() {
@@ -48,5 +50,9 @@ export class GalleryComponent implements OnInit {
       alert(error)
     });
   }
+
+  // getTitle(tag: ): string {
+  //   return  + tag.confidence
+  // }
 
 }

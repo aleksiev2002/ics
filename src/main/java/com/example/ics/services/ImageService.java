@@ -29,5 +29,6 @@ public interface ImageService {
 
     List<TagEntity> createTagEntities(List<TagDto> tagDtos);
 
+    List<ImageEntity> searchImagesByTags(List<String> tags);
     void validateImage(String imageUrl) throws MalformedURLException;
 }

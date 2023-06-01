@@ -107,6 +107,12 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
+    public List<ImageEntity> searchImagesByTags(List<String> tags) {
+        return imageRepository.findByTags_NameIn(tags);
+    }
+
+
+    @Override
     public TagEntity createTagEntity(TagDto tagDto) {
         String tagName = tagDto.getName();
         TagEntity tagEntity = new TagEntity();

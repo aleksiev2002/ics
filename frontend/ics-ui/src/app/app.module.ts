@@ -14,6 +14,7 @@ import {ClarityModule} from "@clr/angular";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ImageViewByIdComponent } from './image-view-by-id/image-view-by-id.component';
 import { NotFoundPageComponent } from './not-found-page/not-found-page.component';
+import { TagFilterComponent } from './tag-filter/tag-filter.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NotFoundPageComponent } from './not-found-page/not-found-page.component
     FooterComponent,
     SubmitComponent,
     ImageViewByIdComponent,
-    NotFoundPageComponent
+    NotFoundPageComponent,
+    TagFilterComponent
   ],
   imports: [
     BrowserModule,

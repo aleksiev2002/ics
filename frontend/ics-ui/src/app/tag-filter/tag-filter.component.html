@@ -1,0 +1,18 @@
+<div class="tag-filter-container">
+  <div class="search-bar">
+    <clr-input-container>
+      <label>Filter</label>
+      <input clrInput type="text" [(ngModel)]="prefix" (input)="filterTags()" placeholder="Enter tag">
+    </clr-input-container>
+    <ul class="selected-tags">
+      <li *ngFor="let tagName of selectedTagNames">
+        <span class="label" (click)="deselectTag(selectedTagNames.indexOf(tagName))">{{ tagName }}</span>
+      </li>
+    </ul>
+  </div>
+  <ul class="tag-list">
+    <li *ngFor="let tag of filteredTags" [class.selected]="isSelected(tag)" (click)="selectTag(tag)">
+      <span class="tag-name">{{ tag.name }}</span>
+    </li>
+  </ul>
+</div>

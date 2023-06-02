@@ -59,9 +59,6 @@
   font-weight: bold;
 }
 
-/* Rest of the CSS styles remain the same */
-
-
 .tag-content {
   display: flex;
   align-items: center;
@@ -90,8 +87,6 @@
   display: flex;
   justify-content: space-between;
 }
-
-
 
 .btn-back {
   background-color: hsl(282, 43%, 54%);

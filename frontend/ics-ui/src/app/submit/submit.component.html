@@ -9,7 +9,9 @@
         </div>
         <div class="submit-actions">
           <button class="btn-submit" type="submit" [disabled]="loading || imageForm.invalid">
-            Submit
+            <clr-icon *ngIf="!loading" shape="cloud-upload"></clr-icon>
+            <span *ngIf="!loading">Submit</span>
+            <clr-spinner *ngIf="loading" clrMedium></clr-spinner>
           </button>
         </div>
       </form>

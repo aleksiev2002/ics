@@ -1,18 +1,24 @@
-<div class="card-columns">
-  <div class="card clickable" *ngFor="let image of images" (click)="viewImage(image.id)">
-    <div class="card-img">
-      <img src="{{image?.url}}" alt="Image:{{image.id}}">
-    </div>
-    <div class="card-block">
-      <div class="card-text tags-row">
-        <span class="label" *ngFor="let tag of image.tags" [title]="'Confidence: ' + tag.confidence">{{tag.name}}</span>
+<div class="gallery-container">
+  <div class="tag-filter">
+    <app-tag-filter (selectedTagsChanged)="handleSelectedTagsChanged($event)"></app-tag-filter>
+  </div>
+  <div class="gallery">
+    <div class="card-columns">
+      <div class="card clickable" *ngFor="let image of images" (click)="viewImage(image.id)">
+        <div class="card-img">
+          <img src="{{ image?.url }}" alt="Image:{{ image.id }}">
+        </div>
+        <div class="card-block">
+          <div class="card-text tags-row">
+            <span class="label" *ngFor="let tag of image.tags" [title]="'Confidence: ' + tag.confidence">{{ tag.name }}</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-
-<div class="pagination-controls">
+<div *ngIf="!isFiltered" class="pagination-controls">
   <select id="page-size-select" [(ngModel)]="pageSize" (ngModelChange)="getImages()">
     <option value="5">5</option>
     <option value="10">10</option>
@@ -23,7 +29,7 @@
     Previous Page
   </button>
 
-  <button class="btn-pagination next" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages-1">
+  <button class="btn-pagination next" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages - 1">
     Next Page
   </button>
 </div>

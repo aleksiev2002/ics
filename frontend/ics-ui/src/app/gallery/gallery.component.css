@@ -82,11 +82,6 @@
   transition: opacity 0.2s, visibility 0.2s;
 }
 
-.label:hover::after {
-  opacity: 0.8;
-  visibility: visible;
-}
-
 .card.clickable {
   cursor: pointer;
   transition: transform 0.3s ease;

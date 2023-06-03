@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Java Tests and Build Artifact
 
 on:
   push:
@@ -25,3 +25,10 @@ jobs:
 
       - name: Run unit tests with Maven
         run: mvn --batch-mode test -Dtest=!com.example.ics.controllers.ImagesControllerTest
+ 
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.2
+        with:
+              name: my-artifact
+              path: target/
+

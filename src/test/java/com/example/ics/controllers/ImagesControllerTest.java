@@ -2,11 +2,16 @@ package com.example.ics.controllers;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.*;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
-
+//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+//@ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestPropertySource("classpath:application-test.properties")
 class ImagesControllerTest {
 
     @BeforeEach

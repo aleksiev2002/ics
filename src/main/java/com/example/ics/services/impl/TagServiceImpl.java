@@ -18,7 +18,7 @@ public class TagServiceImpl implements TagService {
     public List<TagEntity> getTagsStartingWithPrefix(String prefix) {
         return tagRepository.findTagEntityByNameStartingWith(prefix);
     }
-
+    @Override
     public List<TagEntity> getUniqueTagNames() {
         return tagRepository.findTagsByDistinctByUniqueName();
     }

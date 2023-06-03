@@ -31,6 +31,7 @@ public class ImaggaServiceImpl implements ImaggaService {
         this.imaggaConfig = imaggaConfig;
     }
 
+
     @Override
     public List<TagDto> getTagsForImageFromImagga(String imageUrl) {
         try {
@@ -65,7 +66,6 @@ public class ImaggaServiceImpl implements ImaggaService {
         String basicAuth = Base64.getEncoder().encodeToString(credentialsToEncode.getBytes(StandardCharsets.UTF_8));
 
         String url = imaggaConfig.getEndpointUrl() + "?image_url=" + imageUrl;
-
         try {
             URL urlObject = new URL(url);
             HttpURLConnection connection;

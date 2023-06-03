@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "imagga.apiKey",
+      "type": "java.lang.String",
+      "description": "Description for imagga.apiKey."
+    },
+    {
+      "name": "imagga.secretKey",
+      "type": "java.lang.String",
+      "description": "Description for imagga.secretKey."
+    },
+    {
+      "name": "imagga.endpointUrl",
+      "type": "java.lang.String",
+      "description": "Description for imagga.endpointUrl."
+    }
+  ] }

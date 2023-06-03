@@ -19,13 +19,13 @@ import { TagFilterComponent } from './tag-filter/tag-filter.component';
 @NgModule({
   declarations: [
     AppComponent,
+    TagFilterComponent,
     GalleryComponent,
     NavbarComponent,
     FooterComponent,
     SubmitComponent,
     ImageViewByIdComponent,
-    NotFoundPageComponent,
-    TagFilterComponent
+    NotFoundPageComponent
   ],
   imports: [
     BrowserModule,

@@ -17,6 +17,10 @@
     <div class="image-container">
       <img class="image" [src]="image.url" alt="Submitted Image">
     </div>
+    <div class="image-url">
+      <span>Image URL:</span>
+      <a href="{{image.url}}" target="_blank">{{image.url}}</a>
+    </div>
     <div class="button-container">
     <button class="btn-back" (click)="goBackToGallery()">Gallery</button>
     <button class="btn-back" (click)="goBackToSubmit()">Home</button>

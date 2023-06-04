@@ -86,6 +86,7 @@
 .button-container {
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 }
 
 .btn-back {
@@ -101,4 +102,14 @@
 
 .btn-back:hover {
   background-color: hsl(282, 43%, 44%);
+}
+
+.image-url span {
+  font-weight: bold;
+}
+
+.image-url a {
+  color: #0066cc;
+  text-decoration: none;
+  margin-bottom: 10px;
 }

@@ -4,6 +4,7 @@ import com.example.ics.dtos.ImageUrlDto;
 import com.example.ics.models.ImageEntity;
 import com.example.ics.services.ImageService;
 import com.example.ics.utils.RequestThrottler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -15,16 +16,12 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/images")
 public class ImagesController {
 
     private final ImageService imageService;
     private final RequestThrottler requestThrottler;
-
-    public ImagesController(ImageService imageService, RequestThrottler requestThrottler) {
-        this.imageService = imageService;
-        this.requestThrottler = requestThrottler;
-    }
 
     @CrossOrigin(origins = "http://localhost:4200/")
     @GetMapping

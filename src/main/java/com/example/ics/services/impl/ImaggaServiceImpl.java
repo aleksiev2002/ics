@@ -7,6 +7,7 @@ import com.example.ics.services.exceptions.ImaggaServiceException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +24,10 @@ import java.util.Base64;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ImaggaServiceImpl implements ImaggaService {
 
     private final ImaggaConfig imaggaConfig;
-
-    public ImaggaServiceImpl(ImaggaConfig imaggaConfig) {
-        this.imaggaConfig = imaggaConfig;
-    }
-
 
     @Override
     public List<TagDto> getTagsForImageFromImagga(String imageUrl) {

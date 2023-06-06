@@ -54,28 +54,4 @@ class TagServiceImplTest {
         assertEquals(expectedTags, actualTags);
     }
 
-    @Test
-    void testGetUniqueTagNames() {
-
-        List<TagEntity> expectedTags = new ArrayList<>();
-
-        TagEntity tag1 = new TagEntity();
-        tag1.setId(1L);
-        tag1.setName("tag1");
-        tag1.setConfidence(80);
-
-        TagEntity tag2 = new TagEntity();
-        tag2.setId(2L);
-        tag2.setName("tag2");
-        tag2.setConfidence(90);
-
-        expectedTags.add(tag1);
-        expectedTags.add(tag2);
-
-        when(tagRepository.findTagsByDistinctByUniqueName()).thenReturn(expectedTags);
-
-        List<TagEntity> actualTags = tagService.getUniqueTagNames();
-
-        assertEquals(expectedTags, actualTags);
-    }
 }

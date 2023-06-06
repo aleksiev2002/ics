@@ -10,6 +10,7 @@ import com.example.ics.services.ImageService;
 import com.example.ics.services.ImaggaService;
 import com.example.ics.utils.ImageUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -38,17 +39,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
 
     private final ImageRepository imageRepository;
     private final ImaggaService imaggaService;
     private final TagRepository tagRepository;
-
-    public ImageServiceImpl(ImageRepository imageRepository, ImaggaService imaggaService, TagRepository tagRepository) {
-        this.imageRepository = imageRepository;
-        this.imaggaService = imaggaService;
-        this.tagRepository = tagRepository;
-    }
 
     @Override
     public Page<ImageEntity> getAllImages(PageRequest pageRequest) {
@@ -166,7 +162,7 @@ public class ImageServiceImpl implements ImageService {
         }
     }
 
-    public Optional<ImageEntity> getImageByChecksum(String checksum) {
+    private Optional<ImageEntity> getImageByChecksum(String checksum) {
         return imageRepository.findByChecksum(checksum);
     }
 

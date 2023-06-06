@@ -1,2 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+.card.clickable:hover {
+  border-color: #6f5b92!important;
+  box-shadow: 0 0.15rem 0 0 #6f5b92!important;
+}

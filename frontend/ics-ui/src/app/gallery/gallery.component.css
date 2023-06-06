@@ -15,6 +15,7 @@
   margin-bottom: 20px;
 }
 
+
 .card-text.tags-row {
   display: flex;
   flex-wrap: wrap;
@@ -86,3 +87,4 @@
   cursor: pointer;
   transition: transform 0.3s ease;
 }
+

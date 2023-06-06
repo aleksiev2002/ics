@@ -28,7 +28,7 @@
   <button class="btn-pagination prev" (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 0">
     Previous Page
   </button>
-
+ {{currentPage+1}}
   <button class="btn-pagination next" (click)="goToPage(currentPage + 1)" [disabled]="currentPage === totalPages - 1">
     Next Page
   </button>
